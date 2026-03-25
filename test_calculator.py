@@ -5,7 +5,7 @@
 """
 
 import pytest
-from calculator import add, subtract, multiply, divide
+from calculator import add, subtract, multiply, divide, power, sqrt
 
 
 class TestAdd:
@@ -63,3 +63,35 @@ class TestDivide:
     def test_divide_by_zero(self):
         with pytest.raises(ValueError):
             divide(5, 0)
+
+
+class TestPower:
+    def test_positive_exponent(self):
+        assert power(2, 3) == 8.0
+
+    def test_zero_exponent(self):
+        assert power(5, 0) == 1.0
+
+    def test_negative_exponent(self):
+        assert power(2, -2) == 0.25
+
+    def test_negative_base(self):
+        assert power(-2, 3) == -8.0
+
+    def test_float_base(self):
+        assert power(2.0, 2.0) == 4.0
+
+
+class TestSqrt:
+    def test_perfect_square(self):
+        assert sqrt(9) == 3.0
+
+    def test_zero(self):
+        assert sqrt(0) == 0.0
+
+    def test_float(self):
+        assert sqrt(2.0) ** 2 == pytest.approx(2.0)
+
+    def test_negative_raises_error(self):
+        with pytest.raises(ValueError):
+            sqrt(-4)
